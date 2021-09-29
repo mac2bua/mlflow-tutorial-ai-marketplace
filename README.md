@@ -5,10 +5,10 @@ This repository contains the materials used during the AI Marketplace 2021 MLflo
 Agenda
 ========
 
-- ML Lifecycle                                                    
-- Experiment Tracking                                       
-- MLflow Models & Model Registry                   
-- MLflow Projects                                              
+- ML Lifecycle
+- Experiment Tracking
+- MLflow Models & Model Registry
+- MLflow Projects
 - Advanced usage & tips
 
 
@@ -18,10 +18,18 @@ Running instructions
 In order to run the setup you will need to [install docker-compose](https://docs.docker.com/compose/install/) and then can simply do:
 ```shell
 docker-compose build
-docker-compose up
+docker-compose up -d
 ```
 
 You can then access:
 * Jupyter: `http://localhost:8888`
 * MLfLow: `http://localhost:5000`
 * minio (S3): `http://localhost:9000` (user: `minioadmin`, pass: `minioadmin`)
+
+
+At the end of the session, you can simply run the following command to stop all
+the processes:
+
+```shell
+docker-compose down
+```
