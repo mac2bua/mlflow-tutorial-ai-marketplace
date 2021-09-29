@@ -2,7 +2,7 @@
 
 This repository contains the materials used during the AI Marketplace 2021 MLflow tutorial.
 
-Agendda
+Agenda
 ========
 
 - ML Lifecycle                                                    
@@ -15,7 +15,7 @@ Agendda
 Running instructions
 ====================
 
-In order to run the setup you can simply do:
+In order to run the setup you will need to [install docker-compose](https://docs.docker.com/compose/install/) and then can simply do:
 ```shell
 docker-compose build
 docker-compose up
