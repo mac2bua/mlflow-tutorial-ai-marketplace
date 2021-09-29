@@ -4,6 +4,11 @@ ENV PIP_DISABLE_PIP_VERSION_CHECK=1
 ENV PIP_NO_CACHE_DIR=1
 ENV NB_PREFIX /
 
+# Install OpenJDK-11
+RUN apt-get update && \
+    apt-get install -y openjdk-11-jre-headless && \
+    apt-get clean;
+ 
 RUN pip install --upgrade pip==21.1.1 pipenv==2020.11.15 python-dotenv
 
 WORKDIR /app
