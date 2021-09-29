@@ -18,7 +18,7 @@ Running instructions
 In order to run the setup you will need to [install docker-compose](https://docs.docker.com/compose/install/) and then can simply do:
 ```shell
 docker-compose build
-docker-compose up
+docker-compose up -d
 ```
 
 You can then access:
