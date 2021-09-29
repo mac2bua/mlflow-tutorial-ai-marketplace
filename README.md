@@ -5,10 +5,10 @@ This repository contains the materials used during the AI Marketplace 2021 MLflo
 Agenda
 ========
 
-- ML Lifecycle                                                    
-- Experiment Tracking                                       
-- MLflow Models & Model Registry                   
-- MLflow Projects                                              
+- ML Lifecycle
+- Experiment Tracking
+- MLflow Models & Model Registry
+- MLflow Projects
 - Advanced usage & tips
 
 
@@ -19,6 +19,13 @@ In order to run the setup you will need to [install docker-compose](https://docs
 ```shell
 docker-compose build
 docker-compose up -d
+```
+
+At the end of the session, you can simply run the following command to stop all
+the processes:
+
+```shell
+docker-compose down
 ```
 
 You can then access:
