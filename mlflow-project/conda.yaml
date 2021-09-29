@@ -1,0 +1,17 @@
+name: multistep
+channels:
+  - defaults
+  - anaconda
+  - conda-forge
+dependencies:
+  - python=3.6
+  - pyspark
+  - requests
+  - click
+  - pip
+  - pip:
+    - tensorflow==1.15.2
+    - keras==2.2.4
+    - mlflow>=1.0
+    - python-dotenv==0.15.0
+    - boto3==1.17.29

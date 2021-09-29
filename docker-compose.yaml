@@ -1,0 +1,74 @@
+version: "3.9"
+services:
+  s3:
+    image: minio/minio:RELEASE.2021-09-18T18-09-59Z
+    container_name: aws-s3
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command:
+      server /data --console-address ":9001"
+    networks:
+      - backend
+  create_bucket:
+    image: minio/mc:RELEASE.2021-09-23T05-44-03Z
+    depends_on:
+        - s3
+    container_name: mc
+    networks:
+        - backend
+    env_file:
+        - .env
+    entrypoint: >
+        /bin/sh -c "
+        echo 'Wait 20s for minio to startup...' && sleep 20;
+        echo 'Setting up connection'; /usr/bin/mc config host add minio http://s3:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY};
+        echo 'Cleaning bucket'; /usr/bin/mc rm -r --force minio/mlflow;
+        echo 'Creating bucket'; /usr/bin/mc mb minio/mlflow;
+        echo 'Setting bucket policy'; /usr/bin/mc policy set download minio/mlflow;
+        exit 0;
+        "
+  notebook:
+    image: mlflow-workshop:latest
+    build:
+          context: .
+          dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    networks:
+      - backend
+  db:
+    restart: always
+    image: mysql/mysql-server:5.7.28
+    container_name: mlflow_db
+    expose:
+      - "3306"
+    networks:
+      - backend
+    environment:
+      - MYSQL_DATABASE=mlflow
+      - MYSQL_USER=mlflow
+      - MYSQL_PASSWORD=mlflow
+      - MYSQL_ROOT_PASSWORD=mlflow
+  mlflow:
+    restart: always
+    image: larribas/mlflow
+    container_name: mlflow_server
+    ports:
+      - "5000:5000"
+    environment:
+      - AWS_ACCESS_KEY_ID=minioadmin
+      - AWS_SECRET_ACCESS_KEY=minioadmin
+      - AWS_DEFAULT_REGION=eu-west-1
+      - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
+    networks:
+      - backend
+    command: --backend-store-uri mysql+pymysql://mlflow:mlflow@db:3306/mlflow --default-artifact-root s3://mlflow/ --host 0.0.0.0
+
+
+networks:
+  backend:
+    driver: bridge
