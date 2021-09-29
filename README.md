@@ -21,14 +21,15 @@ docker-compose build
 docker-compose up -d
 ```
 
+You can then access:
+* Jupyter: `http://localhost:8888`
+* MLfLow: `http://localhost:5000`
+* minio (S3): `http://localhost:9000` (user: `minioadmin`, pass: `minioadmin`)
+
+
 At the end of the session, you can simply run the following command to stop all
 the processes:
 
 ```shell
 docker-compose down
 ```
-
-You can then access:
-* Jupyter: `http://localhost:8888`
-* MLfLow: `http://localhost:5000`
-* minio (S3): `http://localhost:9000` (user: `minioadmin`, pass: `minioadmin`)
