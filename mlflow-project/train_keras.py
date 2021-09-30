@@ -33,7 +33,7 @@ load_dotenv()
 @click.option("--hidden-units", default=20, type=int)
 def train_keras(ratings_data, als_model_uri, hidden_units):
     np.random.seed(0)
-    tf.set_random_seed(42)  # For reproducibility
+    tf.random.set_seed(42)  # For reproducibility
 
     spark = pyspark.sql.SparkSession.builder.getOrCreate()
     als_model = mlflow.spark.load_model(als_model_uri).stages[0]
